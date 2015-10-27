@@ -1,0 +1,80 @@
+<snippet>
+  <content><![CDATA[
+import Relay from 'react-relay';
+import React, {Component, PropTypes} from 'react';
+import validation from 'react-validation-mixin';
+import strategy from 'utils/plValidationStrategy';
+
+import ${2:Mutation}Mutation from '../mutations/${2:Mutation}Mutation';
+
+class ${1:Name}Form extends Component {
+  static propTypes = {
+    errors: PropTypes.object,
+    validate: PropTypes.func,
+    isValid: PropTypes.func,
+    handleValidation: PropTypes.func,
+    getValidationMessages: PropTypes.func,
+    clearValidations: PropTypes.func,
+  };
+
+  state = {
+    submitting: false,
+  };
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.setState({submitting: true});
+    const onValidate = (error) => {
+      if (error) {
+        // @TODO handle error from server
+        console.log(error);
+        this.setState({submitting: false});
+      } else {
+        const mutationProps = { input: this.getValidatorData() };
+        Relay.Store.update(new ${2:Mutation}Mutation(mutationProps), {
+          onSuccess: () => {
+            this.setState({submitting: false});
+            alert('Form Submit Successful');
+            console.log('Form Submit Success', arguments);
+          },
+          onFailure: (transaction) => {
+            console.log('Form Submit Error', transaction);
+            this.setState({submitting: false});
+          },
+        });
+      }
+    };
+    this.props.validate(onValidate);
+  };
+
+  getValidatorData = () => {
+    return {};
+  };
+
+  // fetch by introspection
+  validatorTypes = () => {
+    return '${2:Mutation}Input';
+  };
+
+  render() {
+    return (
+      <form onSubmit={this.onSubmit}>
+        <SpinnerButton
+          className="prime block"
+          type="submit"
+          showSpinner={this.state.submitting}
+          spinnerText="Please Wait..."
+        >
+          Submit
+        </SpinnerButton>
+      </form>
+    );
+  }
+}
+
+export default validation(strategy)(${1:Name}Form);
+]]></content>
+  <tabTrigger>rcf</tabTrigger>
+  <scope>source.js -(meta)</scope>
+  <description>React Component: Form</description>
+</snippet>

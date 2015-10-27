@@ -1,0 +1,15 @@
+<snippet>
+    <content><![CDATA[
+// async child routes
+function getChildRoutes(location, cb) {
+  require.ensure([], (require) => {
+    cb(null, [
+      ${2:require}
+    ]);
+  }, '${1:chunkName}');
+}
+]]></content>
+    <tabTrigger>getChildRoutes</tabTrigger>
+    <scope>source.js -(meta)</scope>
+    <description>React Router: getChildRoutes</description>
+</snippet>

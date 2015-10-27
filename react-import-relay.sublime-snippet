@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+import Relay from 'react-relay';
+]]></content>
+  <tabTrigger>import Relay</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Import: Relay</description>
+</snippet>

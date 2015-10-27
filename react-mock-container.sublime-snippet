@@ -1,0 +1,13 @@
+<snippet>
+  <content><![CDATA[
+/* eslint-disable */
+import Mock from 'utils/Mock';
+export default Mock.createContainer(${1:Component}, {
+  ${2:data}
+});
+/* eslint-enable */
+]]></content>
+  <tabTrigger>Mock Container</tabTrigger>
+  <scope>source.js</scope>
+  <description>React: Mock Container</description>
+</snippet>

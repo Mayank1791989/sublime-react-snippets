@@ -1,0 +1,15 @@
+<snippet>
+    <content><![CDATA[
+import React from 'react';
+import { Route } from 'react-router';
+
+export default (
+  <Route
+    path="${1:path}"
+  />
+);
+]]></content>
+    <tabTrigger>rrs</tabTrigger>
+    <scope>source.js -(meta)</scope>
+    <description>React Router: screen</description>
+</snippet>

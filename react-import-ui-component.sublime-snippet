@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+import ${1:Name} from 'components/ui/${1:Name}';
+]]></content>
+  <tabTrigger>importui</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Import: UI component</description>
+</snippet>

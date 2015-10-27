@@ -1,0 +1,10 @@
+<snippet>
+  <content><![CDATA[
+const RootQuery = {
+  viewer: () => Relay.QL`query { node(id: ${2: \$id) }`,
+};
+]]></content>
+  <tabTrigger>relay nodeRootQuery</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: NodeRootQuery</description>
+</snippet>

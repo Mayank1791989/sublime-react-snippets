@@ -1,0 +1,30 @@
+<snippet>
+  <content><![CDATA[
+import Relay from 'react-relay';
+
+export default class ${1:${TM_FILENAME/(.+)Mutation\..+/$1/:MutationName}}Mutation extends Relay.Mutation {
+  getMutation() {
+    return Relay.QL`mutation{$1}`;
+  }
+
+  getFatQuery() {
+    return Relay.QL`
+      fragment on ${1}Payload {
+        clientMutationId
+      }
+    `;
+  }
+
+  getConfigs() {
+    return [];
+  }
+
+  getVariables() {
+    return this.props.input;
+  }
+}
+]]></content>
+  <tabTrigger>rrm</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: Mutation</description>
+</snippet>

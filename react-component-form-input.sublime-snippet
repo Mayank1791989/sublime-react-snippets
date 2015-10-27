@@ -1,0 +1,12 @@
+<snippet>
+  <content><![CDATA[
+<${2:Input}
+  ref="${1:key}"
+  message={{error: this.props.getValidationMessages('${1:key}')}}
+  onChange={this.props.handleValidation('${1:key}')}
+/>
+]]></content>
+  <tabTrigger>rcfi</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Component: Form</description>
+</snippet>

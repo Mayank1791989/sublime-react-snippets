@@ -1,0 +1,10 @@
+<snippet>
+  <content><![CDATA[
+const RootQuery = {
+  viewer: () => Relay.QL`query { viewer }`,
+};
+]]></content>
+  <tabTrigger>relay rootQuery</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: ViewerRootQuery</description>
+</snippet>

@@ -1,0 +1,13 @@
+<snippet>
+    <content><![CDATA[
+// async child routes
+function getComponent(location, cb) {
+  require.ensure([], (require) => {
+    cb(null, ${2:component});
+  }, '${1:chunkName}');
+}
+]]></content>
+    <tabTrigger>getComponent</tabTrigger>
+    <scope>source.js -(meta)</scope>
+    <description>React Router: getComponent</description>
+</snippet>
