@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+const { ${1:props} } = ${2:this};
+]]></content>
+  <tabTrigger>const_{_props_}_=_this</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Destructure: props</description>
+</snippet>

@@ -1,0 +1,21 @@
+<snippet>
+  <content><![CDATA[
+{
+  type: 'RANGE_ADD',
+  // The field name in the response that represents the parent of the connection
+  parentName: '${1:viewer}',
+  // The DataID of the parent node that contains the connection
+  parentID: ${2:this.props.viewer.id},
+  // The field name in the response that represents the connection
+  connectionName: '${3:metrics}',
+  // The field name in the response that represents the newly created edge
+  edgeName: '${4:metric}Edge',
+  rangeBehaviors: {
+    '': 'append',
+  },
+}
+]]></content>
+  <tabTrigger>mutation_config_RANGE_ADD</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: Mutation config</description>
+</snippet>

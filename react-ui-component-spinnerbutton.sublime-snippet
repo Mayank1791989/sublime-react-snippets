@@ -1,0 +1,18 @@
+<snippet>
+  <content><![CDATA[
+const mutationProps = { input: ${3:input} };
+Relay.Store.update(new ${1:Name}Mutation(mutationProps), {
+  onSuccess: () => {
+    this.setState({${2:doneMutation}: false});
+    console.log('mutation success', arguments);
+  },
+  onFailure: (transaction) => {
+    this.setState({${2:doneMutation}: false});
+    console.log('mutation failed', arguments);
+  },
+});
+]]></content>
+  <tabTrigger>Relay_Store_update</tabTrigger>
+  <scope>source.js  meta.class.js meta.class.property.js meta.group.braces.curly.js</scope>
+  <description>React Relay: Store update mutation</description>
+</snippet>

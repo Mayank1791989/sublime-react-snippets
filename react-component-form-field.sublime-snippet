@@ -1,0 +1,11 @@
+<snippet>
+  <content><![CDATA[
+<FormField>
+  <FormField.Label>${1:Label}</FormField.Label>
+  <FormField.Errors errors={this.props.getValidationMessages('${2:key}')} />
+</FormField>
+]]></content>
+  <tabTrigger>FormField</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Component: Form Field</description>
+</snippet>

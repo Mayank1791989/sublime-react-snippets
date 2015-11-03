@@ -1,0 +1,16 @@
+<snippet>
+  <content><![CDATA[
+<Select
+  clearable={false}
+  searchable={false}
+  options={[
+    ${1:option}
+  ]}
+  value="${2:value}"
+  onChange={${3:event}}
+/>
+]]></content>
+  <tabTrigger>Select</tabTrigger>
+  <scope>source.js meta.jsx.js</scope>
+  <description>React UI Component: Select</description>
+</snippet>

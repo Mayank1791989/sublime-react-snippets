@@ -1,0 +1,12 @@
+<snippet>
+  <content><![CDATA[
+${1:viewer}: () => Relay.QL`
+  fragment on ${2:User} {
+    ${3:id}
+  }
+`,
+]]></content>
+  <tabTrigger>relayql_fragment</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: Fragment</description>
+</snippet>

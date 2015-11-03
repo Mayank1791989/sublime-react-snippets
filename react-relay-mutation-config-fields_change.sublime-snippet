@@ -1,0 +1,12 @@
+<snippet>
+  <content><![CDATA[
+{
+  type: 'FIELDS_CHANGE',
+  A map between a fieldName in the response and one or more DataIDs in the store.
+  fieldIDs: {updatedPlayers: this.props.ids},
+}
+]]></content>
+  <tabTrigger>mutation_config_fields_change</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: Mutation config</description>
+</snippet>

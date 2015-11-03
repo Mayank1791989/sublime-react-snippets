@@ -1,12 +1,9 @@
 <snippet>
   <content><![CDATA[
-import Relay from 'react-relay';
-import React, {Component, PropTypes} from 'react';
-import validation from 'react-validation-mixin';
-import strategy from 'utils/plValidationStrategy';
-
+import plValidation from 'utils/plValidation';
 import ${2:Mutation}Mutation from '../mutations/${2:Mutation}Mutation';
 
+@plValidation
 class ${1:Name}Form extends Component {
   static propTypes = {
     errors: PropTypes.object,
@@ -18,37 +15,36 @@ class ${1:Name}Form extends Component {
   };
 
   state = {
-    submitting: false,
+    activeMutation: false,
   };
 
-  onSubmit = (event) => {
+  getValidatorData = () => {
+    return {};
+  };
+
+  _handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({submitting: true});
+    this.setState({activeMutation: true});
     const onValidate = (error) => {
       if (error) {
         // @TODO handle error from server
         console.log(error);
-        this.setState({submitting: false});
+        this.setState({activeMutation: false});
       } else {
         const mutationProps = { input: this.getValidatorData() };
         Relay.Store.update(new ${2:Mutation}Mutation(mutationProps), {
           onSuccess: () => {
-            this.setState({submitting: false});
-            alert('Form Submit Successful');
-            console.log('Form Submit Success', arguments);
+            this.setState({acti: false});
+            console.log('mutation Success', arguments);
           },
           onFailure: (transaction) => {
-            console.log('Form Submit Error', transaction);
-            this.setState({submitting: false});
+            this.setState({activeMutation: false});
+            console.log('mutation failed', transaction);
           },
         });
       }
     };
     this.props.validate(onValidate);
-  };
-
-  getValidatorData = () => {
-    return {};
   };
 
   // fetch by introspection
@@ -58,11 +54,11 @@ class ${1:Name}Form extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this._handleSubmit}>
         <SpinnerButton
           className="prime block"
           type="submit"
-          showSpinner={this.state.submitting}
+          showSpinner={this.state.activeMutation}
           spinnerText="Please Wait..."
         >
           Submit
@@ -71,10 +67,8 @@ class ${1:Name}Form extends Component {
     );
   }
 }
-
-export default validation(strategy)(${1:Name}Form);
 ]]></content>
-  <tabTrigger>rcf</tabTrigger>
+  <tabTrigger>React_Form_Component</tabTrigger>
   <scope>source.js -(meta)</scope>
   <description>React Component: Form</description>
 </snippet>

@@ -1,0 +1,10 @@
+<snippet>
+  <content><![CDATA[
+initialVariables: {
+  ${1:firstVariable}
+},
+]]></content>
+  <tabTrigger>initialVariables</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: initialVariables</description>
+</snippet>
