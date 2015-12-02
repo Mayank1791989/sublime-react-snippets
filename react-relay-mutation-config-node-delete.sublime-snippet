@@ -1,0 +1,22 @@
+<snippet>
+  <content><![CDATA[
+{
+  type: 'NODE_DELETE',
+
+  // The field name in the response that represents the parent of the connection
+  parentName: ${2:viewer},
+
+  // The DataID of the parent node that contains the connection
+  parentID: ${3:this.props.viewer.id},
+
+  // The field name in the response that represents the connection
+  connectionName: '${4:metrics}',
+
+  // One or more DataIDs corresponding to nodes to remove from the connection and delete from the store
+  deletedIDFieldName: 'deleted${5:Metric}Id',
+}
+]]></content>
+  <tabTrigger>mutation_config_NODE_DELETE</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: Mutation config</description>
+</snippet>

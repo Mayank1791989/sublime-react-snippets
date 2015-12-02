@@ -1,0 +1,17 @@
+<snippet>
+  <content><![CDATA[
+import _omit from 'lodash/object/omit';
+import _pick from 'lodash/object/pick';
+import isFile from 'utils/isFile';
+getVariables() {
+  return _omit(this.props.input, isFile);
+}
+
+getFiles() {
+  return _pick(this.props.input, isFile);
+}
+]]></content>
+  <tabTrigger>mutation_file</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: Mutation input with File keys</description>
+</snippet>

@@ -1,0 +1,10 @@
+<snippet>
+  <content><![CDATA[
+import FormServerErrors from 'components/ui/Form/FormServerErrors';
+import parseErrors from 'utils/parseErrors';
+import _isEmpty from 'lodash/lang/isEmpty';
+]]></content>
+  <tabTrigger>import__serverErrors</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Import: Server Errors</description>
+</snippet>

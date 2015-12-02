@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+all: LARGE_INTEGER_VALUE, // to fetch all
+]]></content>
+  <tabTrigger>all</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: initial variables</description>
+</snippet>
