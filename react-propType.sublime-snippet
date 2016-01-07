@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+${1:Name}: React.PropTypes.${2:object}${3:.isRequired},
+]]></content>
+  <tabTrigger>propType</tabTrigger>
+  <scope>source.js meta.class.js meta.class.property.js meta.group.braces.curly.js</scope>
+  <description>React PropType</description>
+</snippet>

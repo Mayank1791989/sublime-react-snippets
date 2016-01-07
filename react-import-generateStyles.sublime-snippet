@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+import generateStyles from 'components/ui/HOC/Styles';
+]]></content>
+  <tabTrigger>import_generateStyles</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Import: generateStyles</description>
+</snippet>

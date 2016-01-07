@@ -1,0 +1,13 @@
+<snippet>
+  <content><![CDATA[
+viewer: {
+  type: ViewerType,
+  resolve: () => {
+    return ExecuteCommand('ViewerRead');
+  },
+},
+]]></content>
+  <tabTrigger>resolve__Viewer</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: Resolve Viewer (For Mutation)</description>
+</snippet>

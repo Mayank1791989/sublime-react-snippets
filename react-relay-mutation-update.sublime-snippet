@@ -1,0 +1,49 @@
+<snippet>
+  <content><![CDATA[
+import Relay from 'react-relay';
+
+export default class ${1:Name}UpdateMutation extends Relay.Mutation {
+  static fragments = {
+    ${1/(.)/\L$1/}: () => Relay.QL`
+      fragment on ${1} {
+        id
+      }
+    `,
+  };
+
+  getMutation() {
+    return Relay.QL`mutation{${1}Update}`;
+  }
+
+  getFatQuery() {
+    return Relay.QL`
+      fragment on ${1}UpdatePayload {
+        clientMutationId
+        updated${1}
+      }
+    `;
+  }
+
+  getConfigs() {
+    return [{
+      type: 'FIELDS_CHANGE',
+      // A map between a fieldName in the response and one or more DataIDs in the store.
+      fieldIDs: {updated${1}: this.props.${1/(.)/\L$1/}.id},
+    }];
+  }
+
+  getVariables() {
+    return {
+      id: this.props.${1/(.)/\L$1/}.id,
+      patch: {
+        name: this.props.patch.name,
+      },
+    };
+  }
+}
+
+]]></content>
+  <tabTrigger>relay_mutation_update</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: New Update Mutation</description>
+</snippet>

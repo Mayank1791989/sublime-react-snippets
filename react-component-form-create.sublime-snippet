@@ -1,0 +1,126 @@
+<snippet>
+  <content><![CDATA[
+import Relay from 'react-relay';
+import React, {Component, PropTypes} from 'react';
+
+import Input from 'components/ui/Input';
+import SpinnerButton from 'components/ui/Button/SpinnerButton';
+import { injectToast } from 'components/ui/Toast';
+import FormField from 'components/ui/Form/FormField';
+import FormServerErrors from 'components/ui/Form/FormServerErrors';
+
+import _isEmpty from 'lodash/lang/isEmpty';
+import parseErrors from 'utils/parseErrors';
+import plValidation from 'utils/plValidation';
+import update from 'react-addons-update';
+
+import ${1}CreateMutation from 'mutations/${1}CreateMutation';
+
+@injectToast
+@plValidation
+class ${1:Name}CreateForm extends Component {
+  static propTypes = {
+    validate: PropTypes.func.isRequired,
+    handleValidation: PropTypes.func.isRequired,
+    getValidationMessages: PropTypes.func.isRequired,
+
+    onDone: PropTypes.func,
+    toast: PropTypes.object.isRequired,
+
+    ${2}: PropTypes.object.isRequired,
+  };
+
+  state = {
+    submitting: false,
+    serverErrors: [],
+    value: {},
+  };
+
+  getValidatorData = () => {
+    return this.state.value;
+  };
+
+  validatorTypes() {
+    return '${1}CreateArgs';
+  }
+
+  _handleChange = (key, value) => {
+    this.setState(update(this.state, {
+      value: { [key]: { \$set: value }},
+    }), () => {
+      this.props.handleValidation(key)(value);
+    });
+  };
+
+  _handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({submitting: true, serverErrors: []});
+    const onValidate = (error) => {
+      if (error) {
+        this.setState({submitting: false});
+      } else {
+        const mutationProps = {
+          ${1/(.)/\L$1/}: this.getValidatorData(),
+          ${2}: this.props.${2},
+        };
+        Relay.Store.update(new ${1}CreateMutation(mutationProps), {
+          onSuccess: () => {
+            this.setState({submitting: false});
+            this.props.toast.showMessage('${1} created.');
+            if (this.props.onDone) {
+              this.props.onDone();
+            }
+          },
+          onFailure: (transaction) => {
+            parseErrors(transaction).then((errors) => {
+              this.setState({submitting: false, serverErrors: errors});
+            });
+          },
+        });
+      }
+    };
+    this.props.validate(onValidate);
+  };
+
+  render() {
+    const { state } = this;
+    return (
+      <div>
+        <h2>Create ${1}</h2>
+
+        <form onSubmit={this._handleSubmit}>
+
+          {!state.submitting && !_isEmpty(state.serverErrors)
+            ? <FormServerErrors errors={state.serverErrors} />
+            : null
+          }
+
+          ${3}
+
+          <SpinnerButton
+            className="prime block"
+            type="submit"
+            showSpinner={this.state.submitting}
+          >
+            Submit
+          </SpinnerButton>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default Relay.createContainer(${1}CreateForm, {
+  fragments: {
+    ${2:viewer}: () => Relay.QL`
+      fragment on ${2/(.)/\u$1/} {
+        \${${1}CreateMutation.getFragment('${2}')}
+      }
+    `,
+  },
+});
+]]></content>
+  <tabTrigger>form_create</tabTrigger>
+  <scope>source.js -(meta)</scope>
+  <description>React Component: Create Form</description>
+</snippet>

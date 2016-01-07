@@ -1,0 +1,12 @@
+<snippet>
+  <content><![CDATA[
+getOptimisticResponse() {
+  return {
+    ${1}
+  };
+}
+]]></content>
+  <tabTrigger>getOptimisticResponse</tabTrigger>
+  <scope>meta.class.js</scope>
+  <description>React Relay: Mutation getOptimisticResponse</description>
+</snippet>

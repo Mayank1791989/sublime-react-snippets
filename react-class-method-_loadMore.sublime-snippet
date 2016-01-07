@@ -1,0 +1,17 @@
+<snippet>
+  <content><![CDATA[
+_loadMore = () => {
+  this.setState({loadingMore: true});
+  this.props.relay.setVariables({
+    count: this.props.relay.variables.${2:count} + ${1:10},
+  }, (state) => {
+    if (state.done) {
+      this.setState({loadingMore: false});
+    }
+  });
+};
+]]></content>
+  <tabTrigger>_loadMore</tabTrigger>
+  <scope>source.js meta.class.js</scope>
+  <description>React Class Method: _loadMore</description>
+</snippet>

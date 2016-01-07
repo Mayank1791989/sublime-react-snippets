@@ -1,0 +1,27 @@
+<snippet>
+  <content><![CDATA[
+${1:Name}Update: mutationWithClientMutationId({
+  name: '${1}Update',
+  inputFields: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+    patch: { type: ${1}UpdateArgsType },
+  },
+  outputFields: {
+    updated${1}: {
+      type: ${1:Name}Type,
+      resolve: ({localId}) => {
+        return ExecuteCommand('${1:Name}Read', {id: localId});
+      },
+    },
+  },
+  mutateAndGetPayload({id, patch}) {
+    const localId = fromGlobalId(id).id;
+    ExecuteCommand('${1:Name}Update', {id: localId, patch});
+    return {localId};
+  }
+}),
+]]></content>
+  <tabTrigger>graphql_mutation_update</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: New Update Mutation</description>
+</snippet>

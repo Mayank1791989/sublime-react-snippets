@@ -1,0 +1,13 @@
+<snippet>
+  <content><![CDATA[
+<Upload
+  ref="${1:image}"
+  placeholder="Add an image for this ${2:metric}"
+  value={this.state.value.${1}}
+  onChange={this._handleChange.bind(null, '${1}')}
+/>
+]]></content>
+  <tabTrigger>Upload</tabTrigger>
+  <scope>source.js meta.jsx.js</scope>
+  <description>React Component: Form Field</description>
+</snippet>

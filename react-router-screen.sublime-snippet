@@ -9,7 +9,7 @@ export default (
   />
 );
 ]]></content>
-    <tabTrigger>rrs</tabTrigger>
+    <tabTrigger>react_router_screen</tabTrigger>
     <scope>source.js -(meta)</scope>
     <description>React Router: screen</description>
 </snippet>

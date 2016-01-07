@@ -1,0 +1,18 @@
+<snippet>
+  <content><![CDATA[
+${1:Name}Edge: {
+  type: ${1/(.)/\u$1/}Edge,
+  resolve: (${1}) => {
+    const list = ExecuteCommand('${1/(.)/\u$1/}Query');
+    const new${1/(.)/\u$1/} = {
+      node: ${1},
+      cursor: cursorForObjectInConnection(list, ${1}),
+    };
+    return new${1/(.)/\u$1/};
+  },
+},
+]]></content>
+  <tabTrigger>resolve__NewEdge</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: Resolve Viewer (For Mutation)</description>
+</snippet>

@@ -1,0 +1,14 @@
+<snippet>
+  <content><![CDATA[
+_handleChange = (key, value) => {
+  this.setState(update(this.state, {
+    value: { [key]: { \$set: value }},
+  }), () => {
+    this.props.handleValidation(key)(value);
+  });
+};
+]]></content>
+  <tabTrigger>_handleChange</tabTrigger>
+  <scope>source.js meta.class.js</scope>
+  <description>React Class Method: _handleChange</description>
+</snippet>

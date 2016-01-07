@@ -1,0 +1,17 @@
+<snippet>
+  <content><![CDATA[
+${1:Name}s: {
+  type: ${1/(.)/\u$1/}Connection,
+  args: {
+    ...connectionArgs
+  },
+  resolve(${2:user}, args) {
+    const all = ExecuteCommand('${1/(.)/\u$1/}Query', args);
+    return connectionFromArray(all, args);
+  },
+},
+]]></content>
+  <tabTrigger>graphql__field__connection</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: Field Connection</description>
+</snippet>

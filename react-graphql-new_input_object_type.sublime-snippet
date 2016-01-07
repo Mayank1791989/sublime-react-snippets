@@ -1,0 +1,13 @@
+<snippet>
+  <content><![CDATA[
+const ${1:Name}Type = new GraphQLInputObjectType({
+  name: '${1}',
+  fields: () => ({
+    id: globalIdField('${1}'),
+    ${2},
+  })
+});]]></content>
+  <tabTrigger>newGraphQLInputObjectType</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: New GraphQLObject Types</description>
+</snippet>

@@ -1,0 +1,14 @@
+<snippet>
+  <content><![CDATA[
+<LoadMore
+  style={styles.loader}
+  hasMore={props.${1}.pageInfo.hasNextPage}
+  onTrigger={this._loadMore}
+  loading={this.state.loadingMore}
+  noMoreText="${3:You are viewing all}"
+/>
+]]></content>
+  <tabTrigger>LoadMore</tabTrigger>
+  <scope>source.js meta.jsx.js</scope>
+  <description>React UI Component: Load More</description>
+</snippet>

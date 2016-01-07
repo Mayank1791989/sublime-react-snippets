@@ -1,0 +1,14 @@
+<snippet>
+  <content><![CDATA[
+const {
+  connectionType: ${1:Name}Connection,
+  edgeType: ${1}Edge,
+} = connectionDefinitions({
+  name: '${1}',
+  nodeType: ${1}Type,
+});
+]]></content>
+  <tabTrigger>newConnection</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: New Connection</description>
+</snippet>

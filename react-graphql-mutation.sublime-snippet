@@ -1,0 +1,21 @@
+<snippet>
+  <content><![CDATA[
+${1:MutationName}: mutationWithClientMutationId({
+  name: '${1:MutationName}',
+  inputFields: {
+    ${2}
+  },
+  outputFields: {
+    ${3}
+  },
+  mutateAndGetPayload() {
+    ${4}
+    ExecuteCommand('${1:MutationName}');
+    return {};
+  }
+}),
+]]></content>
+  <tabTrigger>newMutation</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: New Mutation</description>
+</snippet>

@@ -1,0 +1,33 @@
+<snippet>
+  <content><![CDATA[
+${1:Name}Delete: mutationWithClientMutationId({
+  name: '${1}Delete',
+  inputFields: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  outputFields: {
+    deleted${1}Id: {
+      type: GraphQLString,
+      resolve: ({id}) => {
+        return id;
+      },
+    },
+    ${2:viewer: \{
+      type: ViewerType,
+      resolve() \{
+        return ExecuteCommand('ViewerRead');
+      \},
+    \}},
+  },
+  mutateAndGetPayload({id}) {
+    ${3}
+    const localId = fromGlobalId(id).id;
+    ExecuteCommand('${1:Name}Delete', {id: localId});
+    return {id};
+  }
+}),
+]]></content>
+  <tabTrigger>graphql_mutation_delete</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: New Delete Mutation</description>
+</snippet>

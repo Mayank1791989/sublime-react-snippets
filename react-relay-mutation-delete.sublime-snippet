@@ -1,0 +1,58 @@
+<snippet>
+  <content><![CDATA[
+import Relay from 'react-relay';
+
+export default class ${1:Name}DeleteMutation extends Relay.Mutation {
+  static fragments = {
+    ${2:viewer}: () => Relay.QL`
+      fragment on ${2/(.)/\u$1/} {
+        id
+      }
+    `,
+
+    ${1/(.)/\L$1/}: () => Relay.QL`
+      fragment on ${1} {
+        id
+      }
+    `,
+  };
+
+  getMutation() {
+    return Relay.QL`mutation{${1}Delete}`;
+  }
+
+  getFatQuery() {
+    return Relay.QL`
+      fragment on ${1}DeletePayload {
+        clientMutationId
+        ${2} {
+          ${1/(.)/\L$1/}s
+        }
+        deleted${1}Id
+      }
+    `;
+  }
+
+  getConfigs() {
+    return [{
+      type: 'NODE_DELETE',
+      // The field name in the response that represents the parent of the connection
+      parentName: '${2}',
+      // The DataID of the parent node that contains the connection
+      parentID: this.props.${2}.id,
+      // The field name in the response that represents the connection
+      connectionName: '${1/(.)/\L$1/}s',
+      // One or more DataIDs corresponding to nodes to remove from the connection and delete from the store
+      deletedIDFieldName: 'deleted${1}Id',
+    }];
+  }
+
+  getVariables() {
+    return {id: this.props.${1/(.)/\L$1/}.id};
+  }
+}
+]]></content>
+  <tabTrigger>relay_mutation_delete</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: New Delete Mutation</description>
+</snippet>

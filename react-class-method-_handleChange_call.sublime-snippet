@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+this._handleChange.bind(null, '${1:key}')
+]]></content>
+  <tabTrigger>this_handleChange</tabTrigger>
+  <scope>source.js meta.class.js  meta.jsx.js meta.embedded.expression.jsx</scope>
+  <description>React Class Method: _handleChange</description>
+</snippet>

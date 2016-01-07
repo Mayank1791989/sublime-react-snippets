@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+import update from 'react-addons-update';
+]]></content>
+  <tabTrigger>import_update</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Import: Immutable Helper update</description>
+</snippet>

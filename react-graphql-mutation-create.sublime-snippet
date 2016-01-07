@@ -1,0 +1,36 @@
+<snippet>
+  <content><![CDATA[
+${1:Name}Create: mutationWithClientMutationId({
+  name: '${1}Create',
+  inputFields: {
+    ${1/(.)/\L$1/}: { type: new GraphQLNonNull(${1}CreateArgsType) },
+  },
+  outputFields: {
+    ${1/(.)/\L$1/}Edge: {
+      type: ${1}Edge,
+      resolve: (${1/(.)/\L$1/}) => {
+        const list = ExecuteCommand('${1}Query');
+        const new${1} = {
+          node: ${1/(.)/\L$1/},
+          cursor: cursorForObjectInConnection(list, ${1/(.)/\L$1/}),
+        };
+        return new${1};
+      },
+    },
+    ${2:viewer: \{
+      type: ViewerType,
+      resolve() \{
+        return ExecuteCommand('ViewerRead');
+      \},
+    \}},
+  },
+  mutateAndGetPayload({${1/(.)/\L$1/}}) {
+    ${3}
+    return ExecuteCommand('${1}Create', ${1/(.)/\L$1/});
+  }
+}),
+]]></content>
+  <tabTrigger>graphql_mutation_create</tabTrigger>
+  <scope>source.js</scope>
+  <description>React GraphQL: New Mutation Create</description>
+</snippet>

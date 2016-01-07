@@ -1,0 +1,57 @@
+<snippet>
+  <content><![CDATA[
+import Relay from 'react-relay';
+
+export default class ${1:Name}CreateMutation extends Relay.Mutation {
+  static fragments = {
+    ${2:viewer}: () => Relay.QL`
+      fragment on ${2/(.)/\u$1/} {
+        id
+      }
+    `,
+  };
+
+  getMutation() {
+    return Relay.QL`mutation{${1}Create}`;
+  }
+
+  getFatQuery() {
+    return Relay.QL`
+      fragment on ${1}CreatePayload {
+        clientMutationId
+        ${2} {
+          ${1/(.)/\L$1/}s
+        }
+        ${1/(.)/\L$1/}Edge
+      }
+    `;
+  }
+
+  getConfigs() {
+    return [{
+      type: 'RANGE_ADD',
+      // The field name in the response that represents the parent of the connection
+      parentName: '${2}',
+      // The DataID of the parent node that contains the connection
+      parentID: this.props.${2}.id,
+      // The field name in the response that represents the connection
+      connectionName: '${1/(.)/\L$1/}s',
+      // The field name in the response that represents the newly created edge
+      edgeName: '${1/(.)/\L$1/}Edge',
+      rangeBehaviors: {
+        '': 'append',
+      },
+    }];
+  }
+
+  getVariables() {
+    return {
+      ${1/(.)/\L$1/}: this.props.${1/(.)/\L$1/},
+    };
+  }
+}
+]]></content>
+  <tabTrigger>relay_mutation_create</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: New Create Mutation</description>
+</snippet>
