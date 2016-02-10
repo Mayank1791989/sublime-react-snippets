@@ -35,7 +35,7 @@ class ${1:Name}DeleteForm extends Component {
       ${1/(.)/\L$1/}: this.props.${1/(.)/\L$1/},
       ${2}: this.props.${2},
     };
-    Relay.Store.update(new ${1}DeleteMutation(mutationProps), {
+    Relay.Store.commitUpdate(new ${1}DeleteMutation(mutationProps), {
       onSuccess: () => {
         this.setState({submitting: false});
         this.props.toast.showMessage('Removed ${1}');

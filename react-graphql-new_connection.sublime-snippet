@@ -8,7 +8,7 @@ const {
   nodeType: ${1}Type,
 });
 ]]></content>
-  <tabTrigger>newConnection</tabTrigger>
+  <tabTrigger>graphql_new_connection</tabTrigger>
   <scope>source.js</scope>
   <description>React GraphQL: New Connection</description>
 </snippet>

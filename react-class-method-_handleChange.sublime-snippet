@@ -1,12 +1,14 @@
 <snippet>
   <content><![CDATA[
-_handleChange = (key, value) => {
-  this.setState(update(this.state, {
-    value: { [key]: { \$set: value }},
-  }), () => {
-    this.props.handleValidation(key)(value);
-  });
-};
+_handleChange = _memoize((key) => {
+  return (value) => {
+    this.setState(update(this.state, {
+      value: { [key]: { \$set: value }},
+    }), () => {
+      this.props.validate(key);
+    });
+  };
+});
 ]]></content>
   <tabTrigger>_handleChange</tabTrigger>
   <scope>source.js meta.class.js</scope>

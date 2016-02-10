@@ -1,0 +1,9 @@
+<snippet>
+  <content><![CDATA[
+import perf from 'react-perf-component';
+@perf
+]]></content>
+  <tabTrigger>perf</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Perf Component Class</description>
+</snippet>

@@ -10,6 +10,7 @@ import FormField from 'components/ui/Form/FormField';
 import FormServerErrors from 'components/ui/Form/FormServerErrors';
 
 import _isEmpty from 'lodash/lang/isEmpty';
+import _memoize from 'lodash/function/memoize';
 import parseErrors from 'utils/parseErrors';
 import plValidation from 'utils/plValidation';
 import update from 'react-addons-update';
@@ -44,13 +45,15 @@ class ${1:Name}CreateForm extends Component {
     return '${1}CreateArgs';
   }
 
-  _handleChange = (key, value) => {
-    this.setState(update(this.state, {
-      value: { [key]: { \$set: value }},
-    }), () => {
-      this.props.handleValidation(key)(value);
-    });
-  };
+  _handleChange = _memoize((key) => {
+    return (value) => {
+      this.setState(update(this.state, {
+        value: { [key]: { \$set: value }},
+      }), () => {
+        this.props.validate(key);
+      });
+    };
+  });
 
   _handleSubmit = (event) => {
     event.preventDefault();
@@ -63,7 +66,7 @@ class ${1:Name}CreateForm extends Component {
           ${1/(.)/\L$1/}: this.getValidatorData(),
           ${2}: this.props.${2},
         };
-        Relay.Store.update(new ${1}CreateMutation(mutationProps), {
+        Relay.Store.commitUpdate(new ${1}CreateMutation(mutationProps), {
           onSuccess: () => {
             this.setState({submitting: false});
             this.props.toast.showMessage('${1} created.');

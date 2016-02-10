@@ -1,7 +1,7 @@
 <snippet>
   <content><![CDATA[
 const mutationProps = { input: ${3:input} };
-Relay.Store.update(new ${1:Name}Mutation(mutationProps), {
+Relay.Store.commitUpdate(new ${1:Name}Mutation(mutationProps), {
   onSuccess: () => {
     this.setState({${2:doneMutation}: false});
     console.log('mutation success', arguments);

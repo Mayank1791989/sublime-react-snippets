@@ -24,11 +24,10 @@ export default class ${1:Name}DeleteMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on ${1}DeletePayload {
-        clientMutationId
         ${2} {
           ${1/(.)/\L$1/}s
         }
-        deleted${1}Id
+        deleted${1}ID
       }
     `;
   }
@@ -43,7 +42,7 @@ export default class ${1:Name}DeleteMutation extends Relay.Mutation {
       // The field name in the response that represents the connection
       connectionName: '${1/(.)/\L$1/}s',
       // One or more DataIDs corresponding to nodes to remove from the connection and delete from the store
-      deletedIDFieldName: 'deleted${1}Id',
+      deletedIDFieldName: 'deleted${1}ID',
     }];
   }
 

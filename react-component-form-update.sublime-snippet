@@ -11,6 +11,7 @@ import FormField from 'components/ui/Form/FormField';
 import FormServerErrors from 'components/ui/Form/FormServerErrors';
 
 import _isEmpty from 'lodash/lang/isEmpty';
+import _memoize from 'lodash/function/memoize';
 import parseErrors from 'utils/parseErrors';
 import diff from 'utils/diff';
 import plValidation from 'utils/plValidation';
@@ -58,13 +59,15 @@ class ${1:Name}UpdateForm extends Component {
     }
   }
 
-  _handleChange = (key, value) => {
-    this.setState(update(this.state, {
-      value: { [key]: { \$set: value }},
-    }), () => {
-      this.props.handleValidation(key)(value);
-    });
-  };
+  _handleChange = _memoize((key) => {
+    return (value) => {
+      this.setState(update(this.state, {
+        value: { [key]: { \$set: value }},
+      }), () => {
+        this.props.validate(key);
+      });
+    };
+  });
 
   _handleSubmit = (event) => {
     event.preventDefault();
@@ -82,7 +85,7 @@ class ${1:Name}UpdateForm extends Component {
         ${1/(.)/\L$1/}: this.props.${1/(.)/\L$1/},
         patch: patch,
       };
-      Relay.Store.update(new ${1}UpdateMutation(mutationProps), {
+      Relay.Store.commitUpdate(new ${1}UpdateMutation(mutationProps), {
         onSuccess: () => { this._done(); },
         onFailure: (transaction) => {
           parseErrors(transaction).then((errors) => {
