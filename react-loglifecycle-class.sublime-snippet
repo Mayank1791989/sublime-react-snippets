@@ -1,0 +1,9 @@
+<snippet>
+  <content><![CDATA[
+import LogLifecycle from 'components/LogLifecycle';
+@LogLifecycle
+]]></content>
+  <tabTrigger>loglifecycle</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Lifecycle events Component Class</description>
+</snippet>

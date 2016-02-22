@@ -7,7 +7,7 @@
   // The DataID of the parent node that contains the connection
   parentID: this.props.${2}.id},
   // The field name in the response that represents the connection
-  deletedIDFieldName: '${3:metric}s',
+  connectionName: '${3:metric}s',
   // One or more DataIDs corresponding to nodes to remove from the connection and delete from the store
   deletedIDFieldName: 'deleted${3/(.)/\u$1/}Id',
 }

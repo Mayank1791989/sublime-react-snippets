@@ -1,0 +1,8 @@
+<snippet>
+  <content><![CDATA[
+import shouldPureComponentUpdate from 'utils/shouldPureComponentUpdate';
+]]></content>
+  <tabTrigger>import_shouldPureComponentUpdate</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Import: shouldPureComponentUpdate</description>
+</snippet>

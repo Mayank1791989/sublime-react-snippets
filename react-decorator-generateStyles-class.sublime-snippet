@@ -1,0 +1,11 @@
+<snippet>
+  <content><![CDATA[
+import generateStyles from 'components/ui/HOC/Styles';
+@generateStyles(() => ({
+  ${1}
+}))
+]]></content>
+  <tabTrigger>generateStyles</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Decorator - @generateStyles</description>
+</snippet>

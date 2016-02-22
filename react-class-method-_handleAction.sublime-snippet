@@ -1,0 +1,22 @@
+<snippet>
+  <content><![CDATA[
+import invariant from 'fbjs/lib/invariant';
+import memoize from 'utils/memoize';
+
+_handleAction = memoize((action) => {
+  return (payload) => {
+    switch (action) {
+      case '${1:firstAction}':
+        ${2}
+        break;
+      default:
+        invariant(false, `invalid action value '\${action}'`);
+    }
+  };
+});
+
+]]></content>
+  <tabTrigger>_handleAction</tabTrigger>
+  <scope>source.js meta.class.js</scope>
+  <description>React Class Method: _handleAction</description>
+</snippet>
