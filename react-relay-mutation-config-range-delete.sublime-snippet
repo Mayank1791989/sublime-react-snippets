@@ -9,7 +9,7 @@
   // The field name in the response that represents the connection
   connectionName: '${3:metric}s',
   // One or more DataIDs corresponding to nodes to remove from the connection and delete from the store
-  deletedIDFieldName: 'deleted${3/(.)/\u$1/}Id',
+  deletedIDFieldName: 'deleted${3/(.)/\u$1/}ID',
   // Any array containing the field names between the parent and the connection, including the parent and the connection
   pathToConnection: ['${2}', '${3}s'],
 }

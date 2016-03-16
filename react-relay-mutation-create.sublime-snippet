@@ -17,7 +17,7 @@ export default class ${1:Name}CreateMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`
-      fragment on ${1}CreatePayload {
+      fragment on ${1}CreatePayload @relay(pattern: true) {
         ${2} {
           ${1/(.)/\L$1/}s
         }

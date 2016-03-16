@@ -23,7 +23,7 @@ export default class ${1:Name}DeleteMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`
-      fragment on ${1}DeletePayload {
+      fragment on ${1}DeletePayload @relay(pattern: true) {
         ${2} {
           ${1/(.)/\L$1/}s
         }

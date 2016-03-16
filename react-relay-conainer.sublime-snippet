@@ -12,7 +12,7 @@ export default Relay.createContainer(${1:Component}, {
   },
 });
 ]]></content>
-  <tabTrigger>relay container</tabTrigger>
+  <tabTrigger>relay_container</tabTrigger>
   <scope>source.js</scope>
   <description>React Relay: Container</description>
 </snippet>

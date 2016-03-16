@@ -17,7 +17,7 @@ export default class ${1:Name}UpdateMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`
-      fragment on ${1}UpdatePayload {
+      fragment on ${1}UpdatePayload @relay(pattern: true) {
         updated${1}
       }
     `;

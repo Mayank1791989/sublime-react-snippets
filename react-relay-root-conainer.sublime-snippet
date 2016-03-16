@@ -1,0 +1,26 @@
+<snippet>
+  <content><![CDATA[
+
+import { createRelayRootContainerComponent } from 'components/Relay';
+export default createRelayRootContainerComponent(${1:Component}, {
+  propTypes: {
+    ${2:node}ID: React.PropTypes.string.isRequired,
+  },
+
+  prepareParams(props) {
+    return {
+      ${2}ID: props.${2}ID,
+    };
+  },
+
+  queries: {
+    ${2}: () => Relay.QL`
+      query ${2/(.)/\U$1/} { node(id: \$${2}ID) }
+    `,
+  },
+});
+]]></content>
+  <tabTrigger>relay_root_container</tabTrigger>
+  <scope>source.js</scope>
+  <description>React Relay: Root Container</description>
+</snippet>
