@@ -159,7 +159,7 @@ const _${1:Name}CreateFormContainer = Relay.createContainer(_${1:Name}CreateForm
   fragments: {
     viewer: () => Relay.QL`
       fragment on Player {
-        \${${1:Name}Mutation.getFragment('viewer')}
+        \${${1:Name}CreateMutation.getFragment('viewer')}
       }
     `,
   },
