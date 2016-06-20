@@ -14,7 +14,7 @@ import {
   FormServerErrors,
 } from 'components/ui/Form';
 
-import ${1:Name}Mutation from 'mutations/${1:Name}Mutation';
+import ${1:Name}CreateMutation from 'mutations/${1:Name}CreateMutation';
 
 import plValidation from 'utils/plValidation';
 import update from 'react-addons-update';
@@ -82,7 +82,7 @@ export class _${1:Name}CreateForm extends Component {
           input: this.getValidatorData(),
           viewer: this.props.viewer,
         };
-        Relay.Store.commitUpdate(new ${1:Name}Mutation(mutationProps), {
+        Relay.Store.commitUpdate(new ${1:Name}CreateMutation(mutationProps), {
           onSuccess: ({${1:Name}}) => {
             invariant(${1:Name}, 'required argument missing');
             invariant(${1:Name}.${1/(.)/\L$1/}Edge, 'required new ${1/(.)/\L$1/}Edge missing in response');
