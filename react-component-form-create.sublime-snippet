@@ -1,52 +1,64 @@
 <snippet>
   <content><![CDATA[
+/* @flow */
+import React, { Component } from 'react';
 import Relay from 'react-relay';
-import React, {Component, PropTypes} from 'react';
 
-import Input from 'components/ui/Input';
 import { SpinnerButton } from 'components/ui/Button';
-import { injectToast } from 'components/ui/Toast';
-import FormField from 'components/ui/Form/FormField';
-import FormServerErrors from 'components/ui/Form/FormServerErrors';
+import { FormattedMessage } from 'react-intl';
+import Input from 'components/ui/Input';
 
-import _isEmpty from 'lodash/lang/isEmpty';
-import memoize from 'utils/memoize';
-import parseErrors from 'utils/parseErrors';
+import {
+  FormTitle,
+  FormField,
+  FormServerErrors,
+} from 'components/ui/Form';
+
+import ${1:Name}Mutation from 'mutations/${1:Name}Mutation';
+
 import plValidation from 'utils/plValidation';
 import update from 'react-addons-update';
+import memoize from 'utils/memoize';
+import parseErrors from 'utils/parseErrors';
+import _isEmpty from 'lodash/lang/isEmpty';
+import invariant from 'fbjs/lib/invariant';
 
-import ${1}CreateMutation from 'mutations/${1}CreateMutation';
-
-@injectToast
 @plValidation
-class ${1:Name}CreateForm extends Component {
+export class _${1:Name}CreateForm extends Component {
   static propTypes = {
-    validate: PropTypes.func.isRequired,
-    handleValidation: PropTypes.func.isRequired,
-    getValidationMessages: PropTypes.func.isRequired,
+    viewer: React.PropTypes.shape({}).isRequired,
+    onDone: React.PropTypes.func.isRequired,
 
-    onDone: PropTypes.func,
-    toast: PropTypes.object.isRequired,
+    getValidationMessages: React.PropTypes.func.isRequired,
+    validate: React.PropTypes.func.isRequired,
+  };
 
-    ${2}: PropTypes.object.isRequired,
+  static contextTypes = {
+    intl: React.PropTypes.shape({
+      formatMessage: React.PropTypes.func.isRequired,
+    }),
+    toast: React.PropTypes.shape({
+      showMessage: React.PropTypes.func.isRequired,
+    }),
+  };
+
+  _initialValue = { // eslint-disable-line react/sort-comp
+    name: '',
+    ${2}
   };
 
   state = {
-    submitting: false,
+    value: this._initialValue,
     serverErrors: [],
-    value: this._initialValue(),
+    submitting: false,
   };
 
-  getValidatorData = () => {
+  getValidatorData() {
     return this.state.value;
-  };
-
-  _initialValue() {
-    return {};
   }
 
   validatorTypes() {
-    return '${1}CreateArgs';
+    return '${1:Name}Input';
   }
 
   _handleChange = memoize((key) => {
@@ -67,16 +79,16 @@ class ${1:Name}CreateForm extends Component {
         this.setState({submitting: false});
       } else {
         const mutationProps = {
-          ${1/(.)/\L$1/}: this.getValidatorData(),
-          ${2}: this.props.${2},
+          input: this.getValidatorData(),
+          viewer: this.props.viewer,
         };
-        Relay.Store.commitUpdate(new ${1}CreateMutation(mutationProps), {
-          onSuccess: () => {
+        Relay.Store.commitUpdate(new ${1:Name}Mutation(mutationProps), {
+          onSuccess: ({${1:Name}}) => {
+            invariant(${1:Name}, 'required argument missing');
+            invariant(${1:Name}.${1/(.)/\L$1/}Edge, 'required new ${1/(.)/\L$1/}Edge missing in response');
             this.setState({submitting: false});
-            this.props.toast.showMessage('${1} created.');
-            if (this.props.onDone) {
-              this.props.onDone();
-            }
+            this.context.toast.showMessage(this._text.successToastText);
+            this.props.onDone({id: ${1:Name}.${1/(.)/\L$1/}Edge.node.id});
           },
           onFailure: (transaction) => {
             parseErrors(transaction).then((errors) => {
@@ -89,40 +101,77 @@ class ${1:Name}CreateForm extends Component {
     this.props.validate(onValidate);
   };
 
+  _text = {
+    title: <FormattedMessage id="${1:Name}.createForm.title" defaultMessage="Add New Config" />,
+
+    nameField: {
+      label: <FormattedMessage id="${1:Name}.createForm.nameField.label" defaultMessage="Name" />,
+      placeholder: this.context.intl.formatMessage({
+        id: '${1:Name}.createForm.nameField.placeholder',
+        defaultMessage: 'Name',
+      }),
+    },
+
+    submitBtnText: <FormattedMessage id="${1:Name}.createForm.submitBtnText" defaultMessage="Create" />,
+
+    successToastText: this.context.intl.formatMessage({
+      id: '${1:Name}.createForm.successToast',
+      defaultMessage: '${1:Name} Added',
+    }),
+  };
+
   render() {
-    const { state } = this;
     return (
-      <div>
-        <h2>Create ${1}</h2>
+      <form onSubmit={this._handleSubmit}>
 
-        <form onSubmit={this._handleSubmit}>
+        <FormTitle>{this._text.title}</FormTitle>
 
-          {!state.submitting && !_isEmpty(state.serverErrors)
-            ? <FormServerErrors errors={state.serverErrors} />
-            : null
-          }
+        {!this.state.submitting && !_isEmpty(this.state.serverErrors)
+          ? <FormServerErrors errors={this.state.serverErrors} />
+          : null
+        }
 
-          ${3}
+        <FormField>
+          <FormField.Label>{this._text.nameField.label}</FormField.Label>
+           <Input
+            type="text"
+            placeholder={this._text.nameField.placeholder}
+            value={this.state.value.name}
+            onChange={this._handleChange('name')}
+          />
+          <FormField.Errors errors={this.props.getValidationMessages('name')} />
+        </FormField>
 
-          <SpinnerButton
-            className="prime block"
-            type="submit"
-            showSpinner={this.state.submitting}
-          >
-            Submit
-          </SpinnerButton>
-        </form>
-      </div>
+        <SpinnerButton
+          className="prime block"
+          type="submit"
+          showSpinner={this.state.submitting}
+        >
+          {this._text.submitBtnText}
+        </SpinnerButton>
+
+      </form>
     );
   }
 }
 
-export default Relay.createContainer(${1}CreateForm, {
+const _${1:Name}CreateFormContainer = Relay.createContainer(_${1:Name}CreateForm, {
   fragments: {
-    ${2:viewer}: () => Relay.QL`
-      fragment on ${2/(.)/\u$1/} {
-        \${${1}CreateMutation.getFragment('${2}')}
+    viewer: () => Relay.QL`
+      fragment on Player {
+        \${${1:Name}Mutation.getFragment('viewer')}
       }
+    `,
+  },
+});
+
+export { _${1:Name}CreateFormContainer };
+
+import { createRelayRootContainerComponent } from 'components/Relay';
+export default createRelayRootContainerComponent(_${1:Name}CreateFormContainer, {
+  queries: {
+    viewer: () => Relay.QL`
+      query Viewer_${1:Name}Create { viewer }
     `,
   },
 });
