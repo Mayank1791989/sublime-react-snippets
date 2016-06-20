@@ -1,26 +1,54 @@
 <snippet>
   <content><![CDATA[
+/* @flow */
 import Relay from 'react-relay';
 import React, {Component, PropTypes} from 'react';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 
-import SpinnerButton from 'components/ui/Button/SpinnerButton';
-import FormServerErrors from 'components/ui/Form/FormServerErrors';
-import { injectToast } from 'components/ui/Toast';
+import generateStyles from 'components/ui/HOC/Styles';
+import { SpinnerButton } from 'components/ui/Button';
+import {
+  FormServerErrors,
+  FormTitle,
+} from 'components/ui/Form';
 
 import _isEmpty from 'lodash/lang/isEmpty';
 import parseErrors from 'utils/parseErrors';
 
 import ${1}DeleteMutation from 'mutations/${1}DeleteMutation';
 
-@injectToast
-class ${1:Name}DeleteForm extends Component {
-  static propTypes = {
-    onDone: PropTypes.func,
-    toast: PropTypes.object.isRequired,
+const styleFactory = ({}) => ({
+  title: {
+    margin: '0 0 1rem',
+    fontWeight: 'lighter',
+  },
+  body: {
+    padding: '2rem 0',
+  },
+});
 
-    relay: PropTypes.object.isRequired,
-    ${2}: PropTypes.object.isRequired,
-    ${1/(.)/\L$1/}: PropTypes.object.isRequired,
+@generateStyles(styleFactory)
+class _${1:Name}DeleteForm extends Component {
+  static propTypes = {
+
+    ${1/(.)/\L$1/}: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+
+    viewer: PropTypes.shape({}).isRequired,
+
+    onDone: PropTypes.func,
+
+    gStyles: PropTypes.object.isRequired,
+  };
+
+  static contextTypes = {
+    toast: React.PropTypes.shape({
+      showMessage: React.PropTypes.func.isRequired,
+    }).isRequired,
+    intl: React.PropTypes.shape({
+      formatMessage: React.PropTypes.func.isRequired,
+    }),
   };
 
   state = {
@@ -28,21 +56,26 @@ class ${1:Name}DeleteForm extends Component {
     serverErrors: [],
   };
 
+  _done() {
+    this.setState({submitting: false});
+    this.context.toast.showMessage(this.context.intl.formatMessage({
+      id: '${1/(.)/\L$1/}.deleteForm.successToast',
+      defaultMessage: '${1} deleted',
+    }));
+    if (this.props.onDone) {
+      this.props.onDone();
+    }
+  }
+
   _handleSubmit = (event) => {
     event.preventDefault();
     this.setState({submitting: true, serverErrors: []});
     const mutationProps = {
       ${1/(.)/\L$1/}: this.props.${1/(.)/\L$1/},
-      ${2}: this.props.${2},
+      viewer: this.props.viewer,
     };
     Relay.Store.commitUpdate(new ${1}DeleteMutation(mutationProps), {
-      onSuccess: () => {
-        this.setState({submitting: false});
-        this.props.toast.showMessage('Removed ${1}');
-        if (this.props.onDone) {
-          this.props.onDone();
-        }
-      },
+      onSuccess: () => { this._done(); },
       onFailure: (transaction) => {
         parseErrors(transaction).then((errors) => {
           this.setState({submitting: false, serverErrors: errors});
@@ -51,46 +84,86 @@ class ${1:Name}DeleteForm extends Component {
     });
   };
 
+  _text = {
+    title: <FormattedMessage id="${1}.deleteForm.title"defaultMessage="Delete TV Config"description="Title for the TV Config Delete form" />,
+    body(${1/(.)/\L$1/}Name) {
+      return (
+        <FormattedHTMLMessage
+          id="${1}.deleteForm.body"
+          defaultMessage="Are you sure you want to delete the ${1/(.)/\L$1/} '<em>{${1/(.)/\L$1/}Name}</em>'?"
+          description="Body for the ${1} Delete form"
+          values={{${1/(.)/\L$1/}Name}}
+        />
+      );
+    },
+    deleteBtn: <FormattedMessage id="${1}.deleteForm.deleteButton.label" defaultMessage="Yes, Delete" />,
+  };
+
   render() {
+    const styles = this.props.gStyles;
     const { state } = this;
     return (
-      <div>
-        <h2>Remove </h2>
-        <form onSubmit={this._handleSubmit}>
-          {!state.submitting && !_isEmpty(state.serverErrors)
-            ? <FormServerErrors errors={state.serverErrors} />
-            : null
-          }
+      <form onSubmit={this._handleSubmit}>
+        <FormTitle style={styles.title}>{this._text.title}</FormTitle>
 
-          <p>
-            Are you sure you want to delete?
-          </p>
+        {!state.submitting && !_isEmpty(state.serverErrors)
+          ? <FormServerErrors errors={state.serverErrors} />
+          : null
+        }
 
+        <div style={styles.body}>{this._text.body(this.props.${1/(.)/\L$1/}.name)}</div>
+
+        <div>
           <SpinnerButton
-            className="prime"
+            className="alert"
             type="submit"
             showSpinner={this.state.submitting}
           >
-            Yes, Delete
+            {this._text.deleteBtn}
           </SpinnerButton>
-        </form>
-      </div>
+        </div>
+
+      </form>
     );
   }
 }
 
-export default Relay.createContainer(${1}DeleteForm, {
+const _${1}DeleteFormContainer = Relay.createContainer(_${1}DeleteForm, {
   fragments: {
-    ${2:viewer}: () => Relay.QL`
-      fragment on ${2/(.)/\u$1/} {
-        id
-        \${${1}DeleteMutation.getFragment('${2}')}
-      }
-    `,
     ${1/(.)/\L$1/}: () => Relay.QL`
       fragment on ${1} {
+        name
         \${${1}DeleteMutation.getFragment('${1/(.)/\L$1/}')}
       }
+    `,
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        \${${1}DeleteMutation.getFragment('viewer')}
+      }
+    `,
+  },
+});
+
+import createRelayRootContainerComponent from 'components/Relay/createRelayRootContainerComponent';
+export default createRelayRootContainerComponent(_${1}DeleteFormContainer, {
+  propTypes: {
+    id: React.PropTypes.string.isRequired,
+  },
+
+  prepareParams(props) {
+    return {
+      id: props.id,
+    };
+  },
+
+  queries: {
+    ${1/(.)/\L$1/}: () => Relay.QL`
+      query ${1} {
+        node(id: $id)
+      }
+    `,
+    viewer: () => Relay.QL`
+      query Viewer_${1}DeleteForm { viewer }
     `,
   },
 });
